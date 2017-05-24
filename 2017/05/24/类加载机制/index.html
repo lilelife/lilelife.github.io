@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="虚拟机类加载机制">
+<meta name="description" content="虚拟机类加载机制 整个类的加载过程分为：加载、验证、准备、解析、初始化、使用、卸载。其中验证、准备、解析统称为连接。 加载： ​    类加载。 初始化：在进行初始化时，加载、验证、准备需要执行。情景：1 、遇到new getstatic putstatic  invokestatic时，即new对象，读取设置静态字段，调用类的静态方法。 ​    2、使用lang.reflect包的反射调用时，">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="类加载机制">
 <meta property="og:url" content="http://yoursite.com/2017/05/24/类加载机制/index.html">
 <meta property="og:site_name" content="Blog of ll">
-<meta property="og:description" content="虚拟机类加载机制">
-<meta property="og:updated_time" content="2017-05-24T09:07:09.857Z">
+<meta property="og:description" content="虚拟机类加载机制 整个类的加载过程分为：加载、验证、准备、解析、初始化、使用、卸载。其中验证、准备、解析统称为连接。 加载： ​    类加载。 初始化：在进行初始化时，加载、验证、准备需要执行。情景：1 、遇到new getstatic putstatic  invokestatic时，即new对象，读取设置静态字段，调用类的静态方法。 ​    2、使用lang.reflect包的反射调用时，">
+<meta property="og:updated_time" content="2017-05-24T16:28:39.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="类加载机制">
-<meta name="twitter:description" content="虚拟机类加载机制">
+<meta name="twitter:description" content="虚拟机类加载机制 整个类的加载过程分为：加载、验证、准备、解析、初始化、使用、卸载。其中验证、准备、解析统称为连接。 加载： ​    类加载。 初始化：在进行初始化时，加载、验证、准备需要执行。情景：1 、遇到new getstatic putstatic  invokestatic时，即new对象，读取设置静态字段，调用类的静态方法。 ​    2、使用lang.reflect包的反射调用时，">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -302,6 +302,15 @@
       
           
         <p>虚拟机类加载机制</p>
+<p>整个类的加载过程分为：加载、验证、准备、解析、初始化、使用、卸载。其中验证、准备、解析统称为连接。</p>
+<p>加载：</p>
+<p>​    类加载。</p>
+<p>初始化：在进行初始化时，加载、验证、准备需要执行。情景：1 、遇到new getstatic putstatic  invokestatic时，即new对象，读取设置静态字段，调用类的静态方法。</p>
+<p>​    2、使用lang.reflect包的反射调用时，类没有初始化，则需要。</p>
+<p>​    3、初始化一个类，其父类没有初始化，则初始化父类。接口不用</p>
+<p>​    4、虚拟机启动时，用户指定一个要执行的主类（包含main()方法的类），虚拟机会先初始化该类。</p>
+<p>​    5、使用jdk1.7的动态语言支持时，使用MethodHandle实例最后的解析结果REF_getstatic 、REF_putStatic的方法句柄时，该句柄所对应的类没有进行初始化时，虚初始化。</p>
+<p>上面为主动应用。除此之外，所有引用类的方法都不会触发初始化，称为被动引用。通过子类引用父类的静态字段，不会导致子类初始化。常量在编译阶段会存入调用类的常量池，在引用时，没用直接引用到定位常量的类，直接从常量池中引用常量。</p>
 
       
     </div>
@@ -313,7 +322,7 @@
         <p><span>Title:</span><a href="/2017/05/24/类加载机制/">类加载机制</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">李乐</a></p>
         <p><span>Created:</span>2017-05-24, 16:47:08</p>
-        <p><span>Updated:</span>2017-05-24, 17:07:09</p>
+        <p><span>Updated:</span>2017-05-25, 00:28:39</p>
         <p>
             <span>Full URL:</span><a class="post-url" href="/2017/05/24/类加载机制/" title="类加载机制">http://yoursite.com/2017/05/24/类加载机制/</a>
             <span class="copy-path" data-clipboard-text="From http://yoursite.com/2017/05/24/类加载机制/　　By 李乐" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
