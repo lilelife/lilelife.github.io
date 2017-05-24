@@ -263,6 +263,137 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-java类文件结构" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/24/java类文件结构/" class="article-date">
+      <time datetime="2017-05-24T09:07:44.000Z" itemprop="datePublished">2017-05-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/24/java类文件结构/">java类文件结构</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>字节码是够成平台无关性的基石，java虚拟机不和包括java在内的任何语言绑定，只和“class 文件”这种特定的二进制文件格式关联。Class文件包含了java虚拟机指令集，和符号表以及其他若干辅助信息。</p>
+<h5 id="Class类文件的结构"><a href="#Class类文件的结构" class="headerlink" title="Class类文件的结构"></a>Class类文件的结构</h5><p>任何一个Class文件都对应唯一一个类或者接口，但是类和接口并不一定定义在文件中。</p>
+<p>Class文件是一组以8位字节为基础单位的二进制流，各个数据项紧促排列。根基java虚拟机规范，Class文件格式采用类似C结构的伪结构，该伪结构包括两种数据类型：无符号数，表。无符号数是基本的数据类型，以U1，u2，u4，u8来代表1字节，2字节，4字节等的无符号数，无符号数用于描述数字，索引引用，数量值或者字符串值。表使用多个无符号数或者其他表构成的复合数据类型，习惯使用“_info”结尾。</p>
+<p>每个Class文件的头4个字节成为<strong>魔数</strong>（Magic number）,唯一作用是确定该文件是否为一个可以被虚拟机接受的Class文件。魔数后面的4个字节存储Class文件的<strong>版本号</strong>。包含次版本号与主版本号。在主版本号之后是<strong>常量池</strong>入口，常量池入口有一个u2类型的数据表示常量池计数值。常量池存放字面量和符号引用。字面量包含文本字符串，声明为final的常量值，符号引用包含类和接口的权限定名，字段的名称和描述符，方法的名称和描述符。Class文件中方法、字段都需要使用Constant_Utf8_info描述。常量池结束后，是两个字节的<strong>访问标识</strong>，标识是类还是接口，public ，abstract final等。接着包含，<strong>类索引，父类索引，字段表集合，方法表集合，属性表集合。</strong></p>
+<h5 id="字节码指令简介"><a href="#字节码指令简介" class="headerlink" title="字节码指令简介"></a>字节码指令简介</h5><p>java虚拟机的指令由一个字节长度的、代表着某种特定操作含义的数字，也成操作码。以及多个代表此操作所需参数（操作数）构成。</p>
+<p>​    加载和存储指令。</p>
+<p>​    运算指令。</p>
+<p>​    类型转换指令。</p>
+<p>​    对象创建和访问指令。</p>
+<p>​    操作数栈管理指令。</p>
+<p>​    控制转移指令。 方法调用返回，异常处理，同步指令。</p>
+<p>​    。。。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-类加载机制" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/24/类加载机制/" class="article-date">
+      <time datetime="2017-05-24T08:47:08.000Z" itemprop="datePublished">2017-05-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/24/类加载机制/">类加载机制</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>虚拟机类加载机制</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java内存回收" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

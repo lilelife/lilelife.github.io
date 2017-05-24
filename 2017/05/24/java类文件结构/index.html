@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="Gc1 对象是否存活​    1.1 引用计数算法： ​        对象创建时，添加引用就计数器，每当引用时，计数器加一；引用失效是，计数器减一；当计数器的值为0时，不再使用。  缺点，难以解决对象之间的循环引用。 ​    1.2可达性分析算法： ​        使用“GC roots”的对象作为起始点，以该节点，向下搜索，形成引用链，gc回收不再引用链上面的对象。 ​        gc">
+<meta name="description" content="字节码是够成平台无关性的基石，java虚拟机不和包括java在内的任何语言绑定，只和“class 文件”这种特定的二进制文件格式关联。Class文件包含了java虚拟机指令集，和符号表以及其他若干辅助信息。 Class类文件的结构任何一个Class文件都对应唯一一个类或者接口，但是类和接口并不一定定义在文件中。 Class文件是一组以8位字节为基础单位的二进制流，各个数据项紧促排列。根基java虚">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java内存回收">
-<meta property="og:url" content="http://yoursite.com/2017/05/23/java内存回收/index.html">
+<meta property="og:title" content="java类文件结构">
+<meta property="og:url" content="http://yoursite.com/2017/05/24/java类文件结构/index.html">
 <meta property="og:site_name" content="Blog of ll">
-<meta property="og:description" content="Gc1 对象是否存活​    1.1 引用计数算法： ​        对象创建时，添加引用就计数器，每当引用时，计数器加一；引用失效是，计数器减一；当计数器的值为0时，不再使用。  缺点，难以解决对象之间的循环引用。 ​    1.2可达性分析算法： ​        使用“GC roots”的对象作为起始点，以该节点，向下搜索，形成引用链，gc回收不再引用链上面的对象。 ​        gc">
-<meta property="og:updated_time" content="2017-05-23T14:25:10.510Z">
+<meta property="og:description" content="字节码是够成平台无关性的基石，java虚拟机不和包括java在内的任何语言绑定，只和“class 文件”这种特定的二进制文件格式关联。Class文件包含了java虚拟机指令集，和符号表以及其他若干辅助信息。 Class类文件的结构任何一个Class文件都对应唯一一个类或者接口，但是类和接口并不一定定义在文件中。 Class文件是一组以8位字节为基础单位的二进制流，各个数据项紧促排列。根基java虚">
+<meta property="og:updated_time" content="2017-05-24T11:07:55.250Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java内存回收">
-<meta name="twitter:description" content="Gc1 对象是否存活​    1.1 引用计数算法： ​        对象创建时，添加引用就计数器，每当引用时，计数器加一；引用失效是，计数器减一；当计数器的值为0时，不再使用。  缺点，难以解决对象之间的循环引用。 ​    1.2可达性分析算法： ​        使用“GC roots”的对象作为起始点，以该节点，向下搜索，形成引用链，gc回收不再引用链上面的对象。 ​        gc">
+<meta name="twitter:title" content="java类文件结构">
+<meta name="twitter:description" content="字节码是够成平台无关性的基石，java虚拟机不和包括java在内的任何语言绑定，只和“class 文件”这种特定的二进制文件格式关联。Class文件包含了java虚拟机指令集，和符号表以及其他若干辅助信息。 Class类文件的结构任何一个Class文件都对应唯一一个类或者接口，但是类和接口并不一定定义在文件中。 Class文件是一组以8位字节为基础单位的二进制流，各个数据项紧促排列。根基java虚">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>java内存回收 | Blog of ll</title>
+<title>java类文件结构 | Blog of ll</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -261,11 +261,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-java内存回收" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java类文件结构" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/23/java内存回收/" class="article-date">
-      <time datetime="2017-05-23T13:25:21.000Z" itemprop="datePublished">2017-05-23</time>
+      <a href="/2017/05/24/java类文件结构/" class="article-date">
+      <time datetime="2017-05-24T09:07:44.000Z" itemprop="datePublished">2017-05-24</time>
 </a>
 
 
@@ -280,7 +280,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java内存回收
+      java类文件结构
     </h1>
   
 
@@ -301,77 +301,18 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="Gc"><a href="#Gc" class="headerlink" title="Gc"></a>Gc</h4><h5 id="1-对象是否存活"><a href="#1-对象是否存活" class="headerlink" title="1 对象是否存活"></a>1 对象是否存活</h5><p>​    1.1 引用计数算法：</p>
-<p>​        对象创建时，添加引用就计数器，每当引用时，计数器加一；引用失效是，计数器减一；当计数器的值为0时，不再使用。  缺点，难以解决对象之间的循环引用。</p>
-<p>​    1.2可达性分析算法：</p>
-<p>​        使用“GC roots”的对象作为起始点，以该节点，向下搜索，形成引用链，gc回收不再引用链上面的对象。</p>
-<p>​        gc roots的对象，包括</p>
-<p>​            虚拟机栈（栈帧里的本地变量表）中引用的对象；</p>
-<p>​            方法区类静态属性应用的对象</p>
-<p>​            方法区常量应用的对象</p>
-<p>​            本地方法栈中JNI（Native方法）引用的对象</p>
-<p>​    对象在进行可达性分析后，发现没有与gc roots进行连接，则第一次标记，并进行筛选，判断是否需要执行finalize()方法，当对象没有覆盖该finalize方法时，或者finalize已经被系统调用了，则视为“没必要执行”，finalize方法时对象逃脱gc的唯一机会，且只能使用一次，。任何对象的finalize()方法只能被系统执行一次，可以通过override 该方法，在</p>
-<p>protected void finalize() throws Throwable {    </p>
-<p>​    …</p>
-<p>} </p>
-<p>中进行对象自救，例如重新连接引用等。</p>
-<h5 id="2引用"><a href="#2引用" class="headerlink" title="2引用"></a>2引用</h5><p>​    jdk1.2后面，java对引用进行扩展。引用分为，</p>
-<p>强引用（Strong Reference）        软引用（Soft Reference）        弱引用（Weak Reference）        虚引用（Phantom Reference）</p>
-<p>​    强引用，类似与 =new 的对象，强引用时，对象不被gc</p>
-<p>​    软引用，当系统内存溢出异常时，将这些引用对象放入第二次回收列表。如果这次回收时，还没有足够内存，抛出内存溢出异常。</p>
-<p>​    弱引用，无论内存是否足够，都进行回收</p>
-<p>​    虚应用，呵呵 你懂得  仅仅为了系统得到对象回收时的一个通知。。。。</p>
-<h5 id="3-方法区的回收"><a href="#3-方法区的回收" class="headerlink" title="3 方法区的回收"></a>3 方法区的回收</h5><p>​    方法区的回收包括 废弃常量和 无用的类</p>
-<p>​    无用的类需要满足三个条件：该类所有实例被回收，堆中不存在该类的对象；加载该类的ClassLoader已经被回收；该类的java.lang.Class对象没有在任何地方医用，无法通过反射访问该类的方法。</p>
-<h5 id="4垃圾收集算法"><a href="#4垃圾收集算法" class="headerlink" title="4垃圾收集算法"></a>4垃圾收集算法</h5><p>​    4.1标记-清除算法</p>
-<p>​        标记，全部回收。缺点：两个步骤的效率都不高，标记清除后容易形成垃圾碎片</p>
-<p>​    4.2 复制算法</p>
-<p>​        内存被分为一个Eden空间，两个Survivor空间，比例8:1:1，使用时使用一个Eden和一个Surviror，当内存不够时，将两个使用的空间中的存活的对象复制到另一个Survivor中，然后将Eden区域的和先前使用的Sruvivor区域进行垃圾回收。</p>
-<p>​        应用是死亡对象多的，适用于新生代。</p>
-<p>​    4.3标记-整理算法</p>
-<p>​        使用于老年代， 标记阶段与“标记-清除”算法一致，让所有存活的对象都想一端移动，然后直接清除端边界以外的内存。</p>
-<p>​    4.4分代收集算法</p>
-<p>​        将堆根据对象存活周期，将内存分为新生代，老年代，根据不同的区域进行不同的收集算法。</p>
-<h5 id="5垃圾回收器"><a href="#5垃圾回收器" class="headerlink" title="5垃圾回收器"></a>5垃圾回收器</h5><table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th>收集器</th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">新生代</td>
-<td>Serial</td>
-<td>ParNew</td>
-<td>Parallel Scavenge</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:center">老年代</td>
-<td>CMS</td>
-<td>Serial Old</td>
-<td>Parallel Old</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Serial ：单线程，简单，高效</p>
-<p>ParNew: serial 的多线程版本</p>
-<p>…</p>
-<h5 id="6内存分配与回收策略"><a href="#6内存分配与回收策略" class="headerlink" title="6内存分配与回收策略"></a>6内存分配与回收策略</h5><p> 对象优先在Eden分配</p>
-<p>大对象直接进入老年代</p>
-<p>长期存活的对象将进入老年代</p>
-<p>​        <strong>空间分配担保</strong></p>
+        <p>字节码是够成平台无关性的基石，java虚拟机不和包括java在内的任何语言绑定，只和“class 文件”这种特定的二进制文件格式关联。Class文件包含了java虚拟机指令集，和符号表以及其他若干辅助信息。</p>
+<h5 id="Class类文件的结构"><a href="#Class类文件的结构" class="headerlink" title="Class类文件的结构"></a>Class类文件的结构</h5><p>任何一个Class文件都对应唯一一个类或者接口，但是类和接口并不一定定义在文件中。</p>
+<p>Class文件是一组以8位字节为基础单位的二进制流，各个数据项紧促排列。根基java虚拟机规范，Class文件格式采用类似C结构的伪结构，该伪结构包括两种数据类型：无符号数，表。无符号数是基本的数据类型，以U1，u2，u4，u8来代表1字节，2字节，4字节等的无符号数，无符号数用于描述数字，索引引用，数量值或者字符串值。表使用多个无符号数或者其他表构成的复合数据类型，习惯使用“_info”结尾。</p>
+<p>每个Class文件的头4个字节成为<strong>魔数</strong>（Magic number）,唯一作用是确定该文件是否为一个可以被虚拟机接受的Class文件。魔数后面的4个字节存储Class文件的<strong>版本号</strong>。包含次版本号与主版本号。在主版本号之后是<strong>常量池</strong>入口，常量池入口有一个u2类型的数据表示常量池计数值。常量池存放字面量和符号引用。字面量包含文本字符串，声明为final的常量值，符号引用包含类和接口的权限定名，字段的名称和描述符，方法的名称和描述符。Class文件中方法、字段都需要使用Constant_Utf8_info描述。常量池结束后，是两个字节的<strong>访问标识</strong>，标识是类还是接口，public ，abstract final等。接着包含，<strong>类索引，父类索引，字段表集合，方法表集合，属性表集合。</strong></p>
+<h5 id="字节码指令简介"><a href="#字节码指令简介" class="headerlink" title="字节码指令简介"></a>字节码指令简介</h5><p>java虚拟机的指令由一个字节长度的、代表着某种特定操作含义的数字，也成操作码。以及多个代表此操作所需参数（操作数）构成。</p>
+<p>​    加载和存储指令。</p>
+<p>​    运算指令。</p>
+<p>​    类型转换指令。</p>
+<p>​    对象创建和访问指令。</p>
+<p>​    操作数栈管理指令。</p>
+<p>​    控制转移指令。 方法调用返回，异常处理，同步指令。</p>
+<p>​    。。。</p>
 
       
     </div>
@@ -380,13 +321,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/05/23/java内存回收/">java内存回收</a></p>
+        <p><span>Title:</span><a href="/2017/05/24/java类文件结构/">java类文件结构</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">李乐</a></p>
-        <p><span>Created:</span>2017-05-23, 21:25:21</p>
-        <p><span>Updated:</span>2017-05-23, 22:25:10</p>
+        <p><span>Created:</span>2017-05-24, 17:07:44</p>
+        <p><span>Updated:</span>2017-05-24, 19:07:55</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/05/23/java内存回收/" title="java内存回收">http://yoursite.com/2017/05/23/java内存回收/</a>
-            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2017/05/23/java内存回收/　　By 李乐" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2017/05/24/java类文件结构/" title="java类文件结构">http://yoursite.com/2017/05/24/java类文件结构/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2017/05/24/java类文件结构/　　By 李乐" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -398,16 +339,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/05/24/类加载机制/">
-                    类加载机制
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/05/23/javavm/">
-                    javavm
+                <a href="/2017/05/24/类加载机制/">
+                    类加载机制
                 </a>
             </div>
         
@@ -419,7 +354,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gc"><span class="toc-number">1.</span> <span class="toc-text">Gc</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-对象是否存活"><span class="toc-number">1.1.</span> <span class="toc-text">1 对象是否存活</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2引用"><span class="toc-number">1.2.</span> <span class="toc-text">2引用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-方法区的回收"><span class="toc-number">1.3.</span> <span class="toc-text">3 方法区的回收</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4垃圾收集算法"><span class="toc-number">1.4.</span> <span class="toc-text">4垃圾收集算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5垃圾回收器"><span class="toc-number">1.5.</span> <span class="toc-text">5垃圾回收器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6内存分配与回收策略"><span class="toc-number">1.6.</span> <span class="toc-text">6内存分配与回收策略</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Class类文件的结构"><span class="toc-number">1.</span> <span class="toc-text">Class类文件的结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#字节码指令简介"><span class="toc-number">2.</span> <span class="toc-text">字节码指令简介</span></a></li></ol>
         
     </div>
     <style>
@@ -455,7 +390,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"java内存回收　| Blog of ll　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"java类文件结构　| Blog of ll　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -475,15 +410,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/05/24/类加载机制/" title="Pre: 类加载机制">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/05/23/javavm/" title="Next: javavm">
+            <a href="/2017/05/24/类加载机制/" title="Next: 类加载机制">
                 <i class="fa fa-angle-right"></i>
             </a>
         
