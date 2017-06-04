@@ -293,8 +293,7 @@
       
           
         <h3 id="hibernate简介"><a href="#hibernate简介" class="headerlink" title="hibernate简介"></a>hibernate简介</h3><p>​    嗯，jdbc框架</p>
-<h3 id="hibernate环境配置框架"><a href="#hibernate环境配置框架" class="headerlink" title="hibernate环境配置框架"></a>hibernate环境配置框架</h3><h5 id="不使用Maven工程创建时"><a href="#不使用Maven工程创建时" class="headerlink" title="不使用Maven工程创建时"></a>不使用Maven工程创建时</h5><h6 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h6><p>新建lib，添加jar包：</p>
-<p>。。。</p>
+<h3 id="hibernate环境配置框架"><a href="#hibernate环境配置框架" class="headerlink" title="hibernate环境配置框架"></a>hibernate环境配置框架</h3><h5 id="不使用Maven工程创建时"><a href="#不使用Maven工程创建时" class="headerlink" title="不使用Maven工程创建时"></a>不使用Maven工程创建时</h5><h6 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h6><p>新建lib，添加jar包：<br><img src="/hibernate入门s1/a.jgp" alt="a"><br>。。。</p>
 <h6 id="添加配置文件："><a href="#添加配置文件：" class="headerlink" title="添加配置文件："></a>添加配置文件：</h6><p>1.在实体类所在目录下创建‘实体类.hbm.xml’<br>    用于配置实体类对应的数据库表。<br>    a。添加dtd约束</p>
 <pre><code>*        &lt;!DOCTYPE hibernate-configuration PUBLIC
       &quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;
@@ -385,7 +384,7 @@ b。添加mapping对应表与实体类
 <h3 id="hibernate实现crud"><a href="#hibernate实现crud" class="headerlink" title="hibernate实现crud"></a>hibernate实现crud</h3><h4 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h4><pre><code>1.创建SessionFactory
         SessionFactory factory = new SessionFactory();
 2.创建Session 
-&gt;&gt;    session可以实现一级缓存
+&gt;&gt;    session可以实现一级缓存 类似于jdbc中connection
         Session session = factory.OpenSession();
 3.开始事务
     事务有4个特性：隔离，原子，一致，持久

@@ -15,17 +15,19 @@
 
 
 
-<meta name="description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包： 。。。 添加配置文件：1.在实体类所在目录下创建‘实体类.hbm.xml’    用于配置实体类对应的数据库表。    a。添加dtd约束 *        &amp;lt;!DOCTYPE hibernate-configuration PUBLIC       &amp;q">
+<meta name="description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包：。。。 添加配置文件：1.在实体类所在目录下创建‘实体类.hbm.xml’    用于配置实体类对应的数据库表。    a。添加dtd约束 *        &amp;lt;!DOCTYPE hibernate-configuration PUBLIC       &amp;qu">
 <meta name="keywords" content="hibernate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hibernate入门s1">
 <meta property="og:url" content="http://yoursite.com/2017/06/04/hibernate入门s1/index.html">
 <meta property="og:site_name" content="Blog of ll">
-<meta property="og:description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包： 。。。 添加配置文件：1.在实体类所在目录下创建‘实体类.hbm.xml’    用于配置实体类对应的数据库表。    a。添加dtd约束 *        &amp;lt;!DOCTYPE hibernate-configuration PUBLIC       &amp;q">
-<meta property="og:updated_time" content="2017-06-04T15:46:30.127Z">
+<meta property="og:description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包：。。。 添加配置文件：1.在实体类所在目录下创建‘实体类.hbm.xml’    用于配置实体类对应的数据库表。    a。添加dtd约束 *        &amp;lt;!DOCTYPE hibernate-configuration PUBLIC       &amp;qu">
+<meta property="og:image" content="http://yoursite.com/hibernate入门s1/a.jgp">
+<meta property="og:updated_time" content="2017-06-04T15:59:41.901Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hibernate入门s1">
-<meta name="twitter:description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包： 。。。 添加配置文件：1.在实体类所在目录下创建‘实体类.hbm.xml’    用于配置实体类对应的数据库表。    a。添加dtd约束 *        &amp;lt;!DOCTYPE hibernate-configuration PUBLIC       &amp;q">
+<meta name="twitter:description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包：。。。 添加配置文件：1.在实体类所在目录下创建‘实体类.hbm.xml’    用于配置实体类对应的数据库表。    a。添加dtd约束 *        &amp;lt;!DOCTYPE hibernate-configuration PUBLIC       &amp;qu">
+<meta name="twitter:image" content="http://yoursite.com/hibernate入门s1/a.jgp">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -306,8 +308,7 @@
       
           
         <h3 id="hibernate简介"><a href="#hibernate简介" class="headerlink" title="hibernate简介"></a>hibernate简介</h3><p>​    嗯，jdbc框架</p>
-<h3 id="hibernate环境配置框架"><a href="#hibernate环境配置框架" class="headerlink" title="hibernate环境配置框架"></a>hibernate环境配置框架</h3><h5 id="不使用Maven工程创建时"><a href="#不使用Maven工程创建时" class="headerlink" title="不使用Maven工程创建时"></a>不使用Maven工程创建时</h5><h6 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h6><p>新建lib，添加jar包：</p>
-<p>。。。</p>
+<h3 id="hibernate环境配置框架"><a href="#hibernate环境配置框架" class="headerlink" title="hibernate环境配置框架"></a>hibernate环境配置框架</h3><h5 id="不使用Maven工程创建时"><a href="#不使用Maven工程创建时" class="headerlink" title="不使用Maven工程创建时"></a>不使用Maven工程创建时</h5><h6 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h6><p>新建lib，添加jar包：<br><img src="/hibernate入门s1/a.jgp" alt="a"><br>。。。</p>
 <h6 id="添加配置文件："><a href="#添加配置文件：" class="headerlink" title="添加配置文件："></a>添加配置文件：</h6><p>1.在实体类所在目录下创建‘实体类.hbm.xml’<br>    用于配置实体类对应的数据库表。<br>    a。添加dtd约束</p>
 <pre><code>*        &lt;!DOCTYPE hibernate-configuration PUBLIC
       &quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;
@@ -398,7 +399,7 @@ b。添加mapping对应表与实体类
 <h3 id="hibernate实现crud"><a href="#hibernate实现crud" class="headerlink" title="hibernate实现crud"></a>hibernate实现crud</h3><h4 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h4><pre><code>1.创建SessionFactory
         SessionFactory factory = new SessionFactory();
 2.创建Session 
-&gt;&gt;    session可以实现一级缓存
+&gt;&gt;    session可以实现一级缓存 类似于jdbc中connection
         Session session = factory.OpenSession();
 3.开始事务
     事务有4个特性：隔离，原子，一致，持久
@@ -473,7 +474,7 @@ for(User user:list){
         <p><span>本文标题:</span><a href="/2017/06/04/hibernate入门s1/">hibernate入门s1</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">李乐</a></p>
         <p><span>发布时间:</span>2017-06-04, 17:18:35</p>
-        <p><span>最后更新:</span>2017-06-04, 23:46:30</p>
+        <p><span>最后更新:</span>2017-06-04, 23:59:41</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/06/04/hibernate入门s1/" title="hibernate入门s1">http://yoursite.com/2017/06/04/hibernate入门s1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/06/04/hibernate入门s1/　　作者: 李乐" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
