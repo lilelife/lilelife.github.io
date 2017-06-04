@@ -295,96 +295,48 @@
         <h3 id="hibernate简介"><a href="#hibernate简介" class="headerlink" title="hibernate简介"></a>hibernate简介</h3><p>​    嗯，jdbc框架</p>
 <h3 id="hibernate环境配置框架"><a href="#hibernate环境配置框架" class="headerlink" title="hibernate环境配置框架"></a>hibernate环境配置框架</h3><h5 id="不使用Maven工程创建时"><a href="#不使用Maven工程创建时" class="headerlink" title="不使用Maven工程创建时"></a>不使用Maven工程创建时</h5><h6 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h6><p>新建lib，添加jar包：</p>
 <p>。。。<br><img src="/hibernate入门s1/3.jgp" alt="jar包"></p>
-<h6 id="添加配置文件："><a href="#添加配置文件：" class="headerlink" title="添加配置文件："></a>添加配置文件：</h6><p>1.在实体类所在目录下创建‘实体类.hbm.xml’<br>    用于配置实体类对应的数据库表。<br>    a。添加dtd约束</p>
-<pre><code>*        &lt;!DOCTYPE hibernate-configuration PUBLIC
-      &quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;
-      &quot;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;
+<h6 id="添加配置文件："><a href="#添加配置文件：" class="headerlink" title="添加配置文件："></a>添加配置文件：</h6><p>1.在实体类所在目录下创建‘实体类.hbm.xml’<br>    用于配置实体类对应的数据库表。<br>a。添加dtd约束<br>            &lt;!DOCTYPE hibernate-configuration PUBLIC<br>          “-//Hibernate/Hibernate Configuration DTD 3.0//EN”<br>          “<a href="http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;" target="_blank" rel="external">http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;</a></p>
+<p>b。添加mapping对应表与实体类<br>            <hibernate-mapping><br>                <class name="cn.ll.bean.entity.User" table="t_user"><br>                    <id name="uid" column="uid"><br>                        <generator class="native"></generator><br>                    </id><br>                    <property name="name"><br>                    <property name="address"><br>                </property></property></class><br>            </hibernate-mapping><br>2.hibernate.cfg.xml文件<br>创建在src目录下，位置固定<br>            &lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br>            &lt;!DOCTYPE hibernate-configuration PUBLIC<br>                    “-//Hibernate/Hibernate Configuration DTD 3.0//EN”<br>                    “<a href="http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;" target="_blank" rel="external">http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;</a><br>            <hibernate-configuration><br>                <session-factory><br>                <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver </property><br>                  <!--设置数据库的连接url:jdbc:mysql://localhost/hibernate,其中localhost表示mysql服务器名称，此处为本机，    hibernate是数据库名--><br>                        <property name="hibernate.connection.url">jdbc:mysql://localhost/lilelife</property><br>                <!--连接数据库是用户名--><br>                      <property name="hibernate.connection.username">root</property><br>                      <!--连接数据库是密码--><br>                      <property name="hibernate.connection.password">123456</property><br>                      <!--数据库连接池的大小--><br>                      <property name="hibernate.connection.pool.size">20 </property><br>                    <!--是否在后台显示Hibernate用到的SQL语句，开发时设置为true，便于差错，程序运行时可以在Eclipse的控制台显示Hibernate的执行Sql语句。项目部署后可以设置为false，提高运行效率--><br>                    <property name="hibernate.show_sql">true </property><br>                    <!--jdbc.fetch_size是指Hibernate每次从数据库中取出并放到JDBC的Statement中的记录条数。Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢--><br>                    <property name="jdbc.fetch_size">50 </property><br>                    <!--jdbc.batch_size是指Hibernate批量插入,删除和更新时每次操作的记录数。Batch Size越大，批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大--><br>                    <property name="jdbc.batch_size">23 </property><br>                   <property name="hibernate.hbm2ddl.auto">update</property><br>                    <!--jdbc.use_scrollable_resultset是否允许Hibernate用JDBC的可滚动的结果集。对分页的结果集。对分页时的设置非常有帮助--><br>                    <property name="jdbc.use_scrollable_resultset">false </property><br>                    <!--connection.useUnicode连接数据库时是否使用Unicode编码--><br>                    <property name="Connection.useUnicode">true </property><br>                    <!--connection.characterEncoding连接数据库时数据的传输字符集编码方式，最好设置为gbk，用gb2312有的字符不全--><br>                    <property name="connection.characterEncoding">gbk </property>        </session-factory></hibernate-configuration></p>
+<pre><code>        &lt;!--hibernate.dialect 只是Hibernate使用的数据库方言,就是要用Hibernate连接那种类型的数据库服务器。--&gt;   
+          &lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQLDialect &lt;/property&gt;   
+        &lt;!--指定映射文件为“hibernate/ch1/UserInfo.hbm.xml”--&gt;          
+          &lt;mapping resource=&quot;cn/ll/bean/entity/User.hbm.xml&quot;/&gt;  
 
-b。添加mapping对应表与实体类
-&gt;        &lt;hibernate-mapping&gt;
-            &lt;class name=&quot;cn.ll.bean.entity.User&quot; table=&quot;t_user&quot;&gt;
-                &lt;id name=&quot;uid&quot; column=&quot;uid&quot;&gt;
-                    &lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;
-                &lt;/id&gt;
-                &lt;property name=&quot;name&quot; /&gt;
-                &lt;property name=&quot;address&quot; /&gt;
-            &lt;/class&gt;
-        &lt;/hibernate-mapping&gt;  
-</code></pre><p>2.hibernate.cfg.xml文件<br>    创建在src目录下，位置固定</p>
-<pre><code>&gt;        &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-        &lt;!DOCTYPE hibernate-configuration PUBLIC
-                &quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;
-                &quot;http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd&quot;&gt;
-        &lt;hibernate-configuration&gt;
-            &lt;session-factory&gt;
-            &lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver &lt;/property&gt;   
-              &lt;!--设置数据库的连接url:jdbc:mysql://localhost/hibernate,其中localhost表示mysql服务器名称，此处为本机，    hibernate是数据库名--&gt;    
-                    &lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql://localhost/lilelife&lt;/property&gt;   
-            &lt;!--连接数据库是用户名--&gt;   
-                  &lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;   
-                  &lt;!--连接数据库是密码--&gt;   
-                  &lt;property name=&quot;hibernate.connection.password&quot;&gt;123456&lt;/property&gt;          
-                  &lt;!--数据库连接池的大小--&gt;   
-                  &lt;property name=&quot;hibernate.connection.pool.size&quot;&gt;20 &lt;/property&gt;          
-                &lt;!--是否在后台显示Hibernate用到的SQL语句，开发时设置为true，便于差错，程序运行时可以在Eclipse的控制台显示Hibernate的执行Sql语句。项目部署后可以设置为false，提高运行效率--&gt;   
-                &lt;property name=&quot;hibernate.show_sql&quot;&gt;true &lt;/property&gt;   
-                &lt;!--jdbc.fetch_size是指Hibernate每次从数据库中取出并放到JDBC的Statement中的记录条数。Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢--&gt;   
-                &lt;property name=&quot;jdbc.fetch_size&quot;&gt;50 &lt;/property&gt;   
-                &lt;!--jdbc.batch_size是指Hibernate批量插入,删除和更新时每次操作的记录数。Batch Size越大，批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大--&gt;   
-                &lt;property name=&quot;jdbc.batch_size&quot;&gt;23 &lt;/property&gt;
-               &lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;update&lt;/property&gt;  
-                &lt;!--jdbc.use_scrollable_resultset是否允许Hibernate用JDBC的可滚动的结果集。对分页的结果集。对分页时的设置非常有帮助--&gt;   
-                &lt;property name=&quot;jdbc.use_scrollable_resultset&quot;&gt;false &lt;/property&gt;   
-                &lt;!--connection.useUnicode连接数据库时是否使用Unicode编码--&gt;   
-                &lt;property name=&quot;Connection.useUnicode&quot;&gt;true &lt;/property&gt;   
-                &lt;!--connection.characterEncoding连接数据库时数据的传输字符集编码方式，最好设置为gbk，用gb2312有的字符不全--&gt;   
-                &lt;property name=&quot;connection.characterEncoding&quot;&gt;gbk &lt;/property&gt;        
+    &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;
+</code></pre><h3 id="hibernate实体类"><a href="#hibernate实体类" class="headerlink" title="hibernate实体类"></a>hibernate实体类</h3><h4 id="实体类编写规则"><a href="#实体类编写规则" class="headerlink" title="实体类编写规则"></a>实体类编写规则</h4><p>实现setget方法<br>局部变量包含可以表示表中主键的唯一属性<br>            package cn.ll.bean.entity;</p>
+<pre><code>public class User {
+    private int uid;
+    private String name;
+    private String address;
+    public int getUid() {
+        return uid;
+    }
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-                &lt;!--hibernate.dialect 只是Hibernate使用的数据库方言,就是要用Hibernate连接那种类型的数据库服务器。--&gt;   
-                  &lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQLDialect &lt;/property&gt;   
-                &lt;!--指定映射文件为“hibernate/ch1/UserInfo.hbm.xml”--&gt;          
-                  &lt;mapping resource=&quot;cn/ll/bean/entity/User.hbm.xml&quot;/&gt;  
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return &quot;姓名：&quot;+name+&quot;,地址:&quot;+address+&quot;.&quot;;
+    }
 
-            &lt;/session-factory&gt;
-        &lt;/hibernate-configuration&gt;
-</code></pre><h3 id="hibernate实体类"><a href="#hibernate实体类" class="headerlink" title="hibernate实体类"></a>hibernate实体类</h3><h4 id="实体类编写规则"><a href="#实体类编写规则" class="headerlink" title="实体类编写规则"></a>实体类编写规则</h4><pre><code>实现setget方法
-局部变量包含可以表示表中主键的唯一属性
-        package cn.ll.bean.entity;
-
-        public class User {
-            private int uid;
-            private String name;
-            private String address;
-            public int getUid() {
-                return uid;
-            }
-            public void setUid(int uid) {
-                this.uid = uid;
-            }
-            public String getName() {
-                return name;
-            }
-            public void setName(String name) {
-                this.name = name;
-            }
-            public String getAddress() {
-                return address;
-            }
-            public void setAddress(String address) {
-                this.address = address;
-            }
-
-            @Override
-            public String toString() {
-                // TODO Auto-generated method stub
-                return &quot;姓名：&quot;+name+&quot;,地址:&quot;+address+&quot;.&quot;;
-            }
-
-        }
-</code></pre><h4 id="hibernate实体类的三种状态"><a href="#hibernate实体类的三种状态" class="headerlink" title="hibernate实体类的三种状态"></a>hibernate实体类的三种状态</h4><pre><code>瞬时态（transient）
-持久态（persistent）
-托管态
-</code></pre><h3 id="hibernate实现crud"><a href="#hibernate实现crud" class="headerlink" title="hibernate实现crud"></a>hibernate实现crud</h3><h4 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h4><pre><code>1.创建SessionFactory
+}
+</code></pre><h4 id="hibernate实体类的三种状态"><a href="#hibernate实体类的三种状态" class="headerlink" title="hibernate实体类的三种状态"></a>hibernate实体类的三种状态</h4><p>瞬时态（transient）<br>持久态（persistent）<br>托管态</p>
+<h3 id="hibernate实现crud"><a href="#hibernate实现crud" class="headerlink" title="hibernate实现crud"></a>hibernate实现crud</h3><h4 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h4><pre><code>1.创建SessionFactory
         SessionFactory factory = new SessionFactory();
 2.创建Session 
 &gt;&gt;    session可以实现一级缓存
@@ -402,6 +354,33 @@ b。添加mapping对应表与实体类
 6.关闭
     session.close;
     factory.close();
+</code></pre><h4 id="hibernate编写规范"><a href="#hibernate编写规范" class="headerlink" title="hibernate编写规范"></a>hibernate编写规范</h4><pre><code>try{
+    //创建Session等
+    //进行数据库操作
+}catch(Exception e){
+
+}finally{
+    //关闭sessionfactory session
+}
+</code></pre><h4 id="hibernate-三种查询方式"><a href="#hibernate-三种查询方式" class="headerlink" title="hibernate 三种查询方式"></a>hibernate 三种查询方式</h4><p>Query<br>        //使用的是hql语言<br>        Query query = session.createQuery(“from User”);<br>            List<user> list =    query.list();<br>            for(User user:list){<br>                System.out.println(user);<br>            }<br>SQLQuery<br>        //执行sql代码<br>        SQLQuery sqlq = session.createSQLQuery(“select * from t_user”);<br>        sqlq.addEntity(User.class);<br>        List<user> list = sqlq.list();<br>        for(User user:list){<br>            System.out.println(user);<br>        }<br>Criteria<br>        //不使用sql查询代码，使用内置方法进行查询<br>        Criteria criteria = session.createCriteria(User.class);<br>        List<user> list = criteria.list();<br>        for(User user:list){<br>            System.out.println(user);<br>        }</user></user></user></p>
+<h4 id="hibernatey-细节优化"><a href="#hibernatey-细节优化" class="headerlink" title="hibernatey 细节优化"></a>hibernatey 细节优化</h4><p>SessionFactory 创建时，全局可以使用一个对象，可将其放置在工具类静态代码块中，进行创建<br>代码入吓：<br>        public class HibernateUtils {<br>            private static Configuration configuration=null;<br>            private static SessionFactory sessionFactory = null;</p>
+<pre><code>    static{
+        configuration = new Configuration();
+        configuration.configure();
+
+        sessionFactory = configuration.buildSessionFactory();
+
+
+    }
+    //本地线程session 使用时不需要自己关闭session
+    public static Session Session(){
+        return sessionFactory.getCurrentSession();
+    }
+    public static SessionFactory getSessionFactory(){
+        return sessionFactory;
+    }
+
+}
 </code></pre>
       
     </div>
