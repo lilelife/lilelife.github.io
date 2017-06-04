@@ -15,17 +15,19 @@
 
 
 
-<meta name="description" content="即时编译器（JIT）。将“热点代码”编译成平台相关的机器码，并进行分层优化。 热点代码：多次调用的方法；多次执行的循环体。检测方式（基于计数器；基于采用（查看栈顶））。 优化：​    方法内联：如果JVM监测到一些小方法被频繁的执行，它会把方法的调用替换成方法体本身 ​    冗余访问消除： ​        void foo(){     ​            y=b.value; ​">
-<meta name="keywords" content="java">
+<meta name="description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包： ​">
+<meta name="keywords" content="hibernate">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java运行期优化">
-<meta property="og:url" content="http://yoursite.com/2017/05/26/java运行期优化/index.html">
+<meta property="og:title" content="hibernate入门s1">
+<meta property="og:url" content="http://yoursite.com/2017/06/04/hibernate入门s1/index.html">
 <meta property="og:site_name" content="Blog of ll">
-<meta property="og:description" content="即时编译器（JIT）。将“热点代码”编译成平台相关的机器码，并进行分层优化。 热点代码：多次调用的方法；多次执行的循环体。检测方式（基于计数器；基于采用（查看栈顶））。 优化：​    方法内联：如果JVM监测到一些小方法被频繁的执行，它会把方法的调用替换成方法体本身 ​    冗余访问消除： ​        void foo(){     ​            y=b.value; ​">
-<meta property="og:updated_time" content="2017-05-26T15:48:57.311Z">
+<meta property="og:description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包： ​">
+<meta property="og:image" content="http://yoursite.com/2017/06/04/hibernate入门s1/hexo/source/_posts/hibernate入门s1/3.jpg">
+<meta property="og:updated_time" content="2017-06-04T09:31:34.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java运行期优化">
-<meta name="twitter:description" content="即时编译器（JIT）。将“热点代码”编译成平台相关的机器码，并进行分层优化。 热点代码：多次调用的方法；多次执行的循环体。检测方式（基于计数器；基于采用（查看栈顶））。 优化：​    方法内联：如果JVM监测到一些小方法被频繁的执行，它会把方法的调用替换成方法体本身 ​    冗余访问消除： ​        void foo(){     ​            y=b.value; ​">
+<meta name="twitter:title" content="hibernate入门s1">
+<meta name="twitter:description" content="hibernate简介​    嗯，jdbc框架 hibernate环境配置框架不使用Maven工程创建时导包新建lib，添加jar包： ​">
+<meta name="twitter:image" content="http://yoursite.com/2017/06/04/hibernate入门s1/hexo/source/_posts/hibernate入门s1/3.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>java运行期优化 | Blog of ll</title>
+<title>hibernate入门s1 | Blog of ll</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -261,11 +263,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-java运行期优化" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-hibernate入门s1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/26/java运行期优化/" class="article-date">
-      <time datetime="2017-05-26T15:17:54.000Z" itemprop="datePublished">2017-05-26</time>
+      <a href="/2017/06/04/hibernate入门s1/" class="article-date">
+      <time datetime="2017-06-04T09:18:35.000Z" itemprop="datePublished">2017-06-04</time>
 </a>
 
 
@@ -280,7 +282,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java运行期优化
+      hibernate入门s1
     </h1>
   
 
@@ -291,7 +293,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -301,44 +303,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>即时编译器（JIT）。将“热点代码”编译成平台相关的机器码，并进行分层优化。</p>
-<p>热点代码：多次调用的方法；多次执行的循环体。检测方式（基于计数器；基于采用（查看栈顶））。</p>
-<h4 id="优化："><a href="#优化：" class="headerlink" title="优化："></a>优化：</h4><p>​    方法内联：如果JVM监测到一些小方法被频繁的执行，它会把方法的调用替换成方法体本身</p>
-<p>​    冗余访问消除：</p>
-<p>​        void foo(){    </p>
-<p>​            y=b.value;</p>
-<p>​            z=b.value;</p>
-<p>​            sum = y+z;</p>
-<p>​        }</p>
-<p>​        消除后：</p>
-<p>​        void foo(){    </p>
-<p>​            y=b.value;</p>
-<p>​            z=y;</p>
-<p>​            sum = y+z;</p>
-<p>​        }</p>
-<p>​    复写传播：</p>
-<p>​        优化后：</p>
-<p>​        void foo(){    </p>
-<p>​            y=b.value;</p>
-<p>​            y=y;</p>
-<p>​            sum = y+y;</p>
-<p>​        }</p>
-<p>​    无用代码消除：</p>
-<p>​        优化后：</p>
-<p>​        void foo(){    </p>
-<p>​            y=b.value;</p>
-<p>​            sum = y+y;</p>
-<p>​        }</p>
-<h4 id="公共字表达式消除："><a href="#公共字表达式消除：" class="headerlink" title="公共字表达式消除："></a>公共字表达式消除：</h4><p>​    int d=E*12 + a+（a+E）；</p>
-<p>​    优化后：</p>
-<p>​    int d = E*13+a;</p>
-<h4 id="数组边界检测消除："><a href="#数组边界检测消除：" class="headerlink" title="数组边界检测消除："></a>数组边界检测消除：</h4><p>​    数组每次进行访问时，foo[i] 都会对i进行检测，检测&gt;0,&lt;=lenth。</p>
-<p>​    编译时通过根据数据流分析i有没有越界。执行时不进行判断。</p>
-<h4 id="逃逸分析："><a href="#逃逸分析：" class="headerlink" title="逃逸分析："></a>逃逸分析：</h4><p>​    相当于类型继承关系分析。分析对象动态作用域。</p>
-<p>​    当一个对象在方法内定义，肯定在外部方法中引用，例如作为调用参数传递到其他方法中，成为方法逃逸。如果真没一个对象不会逃逸到其他线程或方法，也就是别的方法或者线程无法通过任何途径进行访问该变量。不会逃逸时，可以进行如下优化：</p>
-<p>​    栈上分配，将对象内存在栈上分配，该对象可以随着方法的结束进行销毁，省略堆上面的gc。</p>
-<p>​    同步消除，线程同步比较耗时，当对象不会逃逸出线程时，说明不会被其他线程访问到，可以 省略变量的同步措施。</p>
-<p>​    标量替换，标量（int、long、等）无法再解析为更小的数据来表示。但对象不是一个标量。可以拆散 ，如果不会逃逸时，则可以使用若干个被这个方法使用的成员变量来替换。</p>
+        <h3 id="hibernate简介"><a href="#hibernate简介" class="headerlink" title="hibernate简介"></a>hibernate简介</h3><p>​    嗯，jdbc框架</p>
+<h3 id="hibernate环境配置框架"><a href="#hibernate环境配置框架" class="headerlink" title="hibernate环境配置框架"></a>hibernate环境配置框架</h3><h5 id="不使用Maven工程创建时"><a href="#不使用Maven工程创建时" class="headerlink" title="不使用Maven工程创建时"></a>不使用Maven工程创建时</h5><h6 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h6><p>新建lib，添加jar包：</p>
+<p>​        <img src="/2017/06/04/hibernate入门s1/hexo\source\_posts\hibernate入门s1\3.jpg" alt="3"></p>
 
       
     </div>
@@ -347,13 +314,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/05/26/java运行期优化/">java运行期优化</a></p>
+        <p><span>Title:</span><a href="/2017/06/04/hibernate入门s1/">hibernate入门s1</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">李乐</a></p>
-        <p><span>Created:</span>2017-05-26, 23:17:54</p>
-        <p><span>Updated:</span>2017-05-26, 23:48:57</p>
+        <p><span>Created:</span>2017-06-04, 17:18:35</p>
+        <p><span>Updated:</span>2017-06-04, 17:31:34</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/05/26/java运行期优化/" title="java运行期优化">http://yoursite.com/2017/05/26/java运行期优化/</a>
-            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2017/05/26/java运行期优化/　　By 李乐" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2017/06/04/hibernate入门s1/" title="hibernate入门s1">http://yoursite.com/2017/06/04/hibernate入门s1/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2017/06/04/hibernate入门s1/　　By 李乐" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -365,16 +332,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/06/04/hibernate入门s1/">
-                    hibernate入门s1
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/05/24/java类文件结构/">
-                    java类文件结构
+                <a href="/2017/05/26/java运行期优化/">
+                    java运行期优化
                 </a>
             </div>
         
@@ -386,7 +347,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#优化："><span class="toc-number">1.</span> <span class="toc-text">优化：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#公共字表达式消除："><span class="toc-number">2.</span> <span class="toc-text">公共字表达式消除：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组边界检测消除："><span class="toc-number">3.</span> <span class="toc-text">数组边界检测消除：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逃逸分析："><span class="toc-number">4.</span> <span class="toc-text">逃逸分析：</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#hibernate简介"><span class="toc-number">1.</span> <span class="toc-text">hibernate简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hibernate环境配置框架"><span class="toc-number">2.</span> <span class="toc-text">hibernate环境配置框架</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#不使用Maven工程创建时"><span class="toc-number">2.0.1.</span> <span class="toc-text">不使用Maven工程创建时</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#导包"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">导包</span></a></li></ol></li></ol></li></ol></li></ol>
         
     </div>
     <style>
@@ -422,7 +383,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"java运行期优化　| Blog of ll　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"hibernate入门s1　| Blog of ll　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -442,15 +403,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/06/04/hibernate入门s1/" title="Pre: hibernate入门s1">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/05/24/java类文件结构/" title="Next: java类文件结构">
+            <a href="/2017/05/26/java运行期优化/" title="Next: java运行期优化">
                 <i class="fa fa-angle-right"></i>
             </a>
         
